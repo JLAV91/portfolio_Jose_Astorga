@@ -59,6 +59,7 @@ export default function HomeScreen() {
       <ScrollView
         ref={scrollRef}
         style={styles.scroll}
+        showsVerticalScrollIndicator={false}
       >
         <View
           onLayout={(event) => {

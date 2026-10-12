@@ -12,7 +12,10 @@ type ProjectDetailsProps = {
 
 export function ProjectDetails({ project }: ProjectDetailsProps) {
     return (
-        <ScrollView style={styles.page}>
+        <ScrollView
+            style={styles.page}
+            showsVerticalScrollIndicator={false}
+        >
             <PageMetadata
                 title={
                     project
