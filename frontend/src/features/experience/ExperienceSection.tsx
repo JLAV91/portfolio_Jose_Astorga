@@ -1,8 +1,8 @@
 import { StyleSheet, Text, View } from 'react-native';
-
+import { TechnologyTags } from '@/components/ui/TechnologyTags';
 import { SectionContainer } from '@/components/layout/SectionContainer';
 import { SectionTitle } from '@/components/ui/SectionTitle';
-import { colors, spacing, typography } from '@/theme';
+import { colors, fonts, spacing, typography } from '@/theme';
 
 import { experiences } from './data';
 
@@ -36,6 +36,13 @@ export function ExperienceSection() {
                                 </View>
                             ))}
                         </View>
+                        {!!experience.technologies?.length && (
+                            <View style={styles.technologies}>
+                                <TechnologyTags
+                                    technologies={experience.technologies}
+                                />
+                            </View>
+                        )}
                     </View>
                 ))}
             </View>
@@ -58,6 +65,7 @@ const styles = StyleSheet.create({
     },
 
     period: {
+        fontFamily: fonts.code,
         alignSelf: 'flex-start',
         paddingHorizontal: spacing.sm,
         paddingVertical: spacing.xs,
@@ -68,12 +76,13 @@ const styles = StyleSheet.create({
     },
 
     role: {
+        fontFamily: fonts.heading,
         color: colors.primary,
         fontSize: typography.subtitle,
-        fontWeight: '600',
     },
 
     company: {
+        fontFamily: fonts.bodyMedium,
         color: colors.accent,
         fontSize: typography.body,
     },
@@ -96,9 +105,16 @@ const styles = StyleSheet.create({
     },
 
     description: {
+        fontFamily: fonts.body,
         flex: 1,
         color: colors.textMuted,
         fontSize: typography.body,
         lineHeight: 26,
+    },
+    technologies: {
+        marginTop: spacing.md,
+        paddingTop: spacing.md,
+        borderTopWidth: 1,
+        borderTopColor: 'rgba(68, 71, 73, 0.4)',
     },
 });

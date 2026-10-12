@@ -4,4 +4,5 @@ export type Project = {
     title: string;
     shortDescription: string;
     description: string;
+    technologies?: string[];
 };

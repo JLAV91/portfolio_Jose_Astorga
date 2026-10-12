@@ -4,4 +4,5 @@ export type Experience = {
     company: string;
     period: string;
     highlights: string[];
+    technologies?: string[];
 };

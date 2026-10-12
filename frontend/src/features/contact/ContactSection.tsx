@@ -3,7 +3,7 @@ import { StyleSheet, Text, View } from 'react-native';
 
 import { SectionContainer } from '@/components/layout/SectionContainer';
 import { SectionTitle } from '@/components/ui/SectionTitle';
-import { colors, spacing, typography } from '@/theme';
+import { colors, fonts, spacing } from '@/theme';
 
 import { contact } from './data';
 
@@ -13,37 +13,60 @@ export function ContactSection() {
             <SectionTitle number="05" title="Contacto" />
 
             <View style={styles.card}>
-                <Text accessibilityRole="header" style={styles.title}>
+                <Text style={styles.label}>
+                    CONECTEMOS
+                </Text>
+
+                <Text
+                    accessibilityRole="header"
+                    style={styles.title}
+                >
                     Hablemos de tu próximo proyecto
                 </Text>
 
                 <Text style={styles.description}>
-                    Si quieres conversar sobre una oportunidad profesional
-                    o un proyecto de software, puedes contactarme por
-                    estos medios.
+                    Si quieres conversar sobre desarrollo backend,
+                    web o móvil, colaborar en un proyecto o compartir
+                    una oportunidad profesional, puedes escribirme.
                 </Text>
 
-                <View style={styles.links}>
-                    <Link
-                        href={`mailto:${contact.email}`}
-                        style={styles.emailLink}
-                    >
-                        Escribirme por correo →
-                    </Link>
+                <Link
+                    href={`mailto:${contact.email}`}
+                    style={styles.emailLink}
+                >
+                    Escribirme por correo ↗
+                </Link>
 
-                    <Link
-                        href={`https://github.com/${contact.githubUsername}`}
-                        style={styles.profileLink}
-                    >
-                        GitHub ↗
-                    </Link>
+                <Text selectable style={styles.email}>
+                    {contact.email}
+                </Text>
 
+                <View style={styles.divider} />
+
+                <Text style={styles.label}>
+                    CONEXIONES DIRECTAS
+                </Text>
+
+                <View style={styles.profiles}>
                     <Link
                         href={`https://www.linkedin.com/in/${contact.linkedinUsername}`}
+                        target="_blank"
+                        rel="noopener noreferrer"
                         style={styles.profileLink}
                     >
                         LinkedIn ↗
                     </Link>
+
+                    {contact.githubUsername && (
+                        <Link
+                            href={`https://github.com/${contact.githubUsername}`}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            style={styles.profileLink}
+                        >
+                            GitHub ↗
+                        </Link>
+                    )}
                 </View>
             </View>
         </SectionContainer>
@@ -53,46 +76,76 @@ export function ContactSection() {
 const styles = StyleSheet.create({
     card: {
         padding: spacing.lg,
-        gap: spacing.lg,
+        gap: spacing.md,
         backgroundColor: colors.surface,
         borderWidth: 1,
-        borderColor: colors.border,
+        borderColor: 'rgba(68, 71, 73, 0.5)',
         borderRadius: 8,
+    },
+
+    label: {
+        color: colors.accent,
+        fontFamily: fonts.code,
+        fontSize: 11,
+        lineHeight: 16,
+        letterSpacing: 1,
     },
 
     title: {
         color: colors.primary,
-        fontSize: typography.subtitle,
-        fontWeight: '600',
+        fontFamily: fonts.heading,
+        fontSize: 28,
+        lineHeight: 36,
     },
 
     description: {
+        maxWidth: 680,
         color: colors.textMuted,
-        fontSize: typography.body,
-        lineHeight: 26,
-    },
-
-    links: {
-        flexDirection: 'row',
-        flexWrap: 'wrap',
-        alignItems: 'center',
-        gap: spacing.md,
+        fontFamily: fonts.body,
+        fontSize: 16,
+        lineHeight: 28,
     },
 
     emailLink: {
-        paddingHorizontal: spacing.md,
-        paddingVertical: spacing.sm,
+        alignSelf: 'flex-start',
+        marginTop: spacing.sm,
+        paddingHorizontal: spacing.lg,
+        paddingVertical: spacing.md,
         backgroundColor: colors.accent,
         color: colors.background,
-        fontSize: typography.body,
-        fontWeight: '600',
-        borderRadius: 4,
+        fontFamily: fonts.bodySemiBold,
+        fontSize: 15,
+        borderRadius: 6,
+    },
+
+    email: {
+        color: colors.textMuted,
+        fontFamily: fonts.code,
+        fontSize: 13,
+        lineHeight: 22,
+    },
+
+    divider: {
+        height: 1,
+        marginVertical: spacing.sm,
+        backgroundColor: 'rgba(68, 71, 73, 0.4)',
+    },
+
+    profiles: {
+        flexDirection: 'row',
+        flexWrap: 'wrap',
+        gap: spacing.md,
     },
 
     profileLink: {
+        paddingHorizontal: spacing.md,
         paddingVertical: spacing.sm,
-        color: colors.accent,
-        fontSize: typography.body,
-        fontWeight: '600',
+        backgroundColor: colors.surfaceRaised,
+        borderWidth: 1,
+        borderColor: colors.border,
+        borderRadius: 6,
+        color: colors.primary,
+        fontFamily: fonts.bodyMedium,
+        fontSize: 14,
     },
 });

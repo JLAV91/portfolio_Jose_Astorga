@@ -11,6 +11,14 @@ export const projects: Project[] = [
             'FinTrack es un proyecto orientado a la gestión de finanzas personales. ' +
             'Su objetivo es facilitar la organización de deudas, gastos y presupuestos ' +
             'desde una experiencia accesible en distintas plataformas.',
+        technologies: [
+            'React Native',
+            'Expo',
+            'TypeScript',
+            'Java',
+            'Spring Boot',
+            'PostgreSQL',
+        ],
     },
     {
         id: 2,
@@ -23,5 +31,13 @@ export const projects: Project[] = [
             'El frontend se construye con React Native, Expo y TypeScript, organizando ' +
             'la interfaz en componentes reutilizables y funcionalidades. ' +
             'El backend utiliza Java, Spring Boot y PostgreSQL.',
+        technologies: [
+            'React Native',
+            'Expo',
+            'TypeScript',
+            'Java',
+            'Spring Boot',
+            'PostgreSQL',
+        ],
     },
 ];

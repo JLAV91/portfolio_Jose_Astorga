@@ -3,5 +3,6 @@ export type Education = {
     category: string;
     title: string;
     institution: string;
-    period: string;
+    period?: string;
+    certificateUrl?: `https://${string}`;
 };

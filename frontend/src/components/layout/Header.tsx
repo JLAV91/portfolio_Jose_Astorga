@@ -31,13 +31,14 @@ export function Header({ onNavigate }: HeaderProps) {
     const { width } = useWindowDimensions();
     const [selectedSection, setSelectedSection] =
         useState<SectionId>('home');
-
+    const [isMenuOpen, setIsMenuOpen] = useState(false);
     const showNavigation = width >= 1100;
     const showProjectsButton = width >= 640;
     const isCompact = width < 400;
 
     function navigateTo(section: SectionId) {
         setSelectedSection(section);
+        setIsMenuOpen(false);
         onNavigate(section);
     }
 
@@ -130,8 +131,48 @@ export function Header({ onNavigate }: HeaderProps) {
                             Contactar ↗
                         </Text>
                     </Pressable>
+                    {!showNavigation && (
+                        <Pressable
+                            accessibilityRole="button"
+                            accessibilityLabel={
+                                isMenuOpen ? 'Cerrar menú' : 'Abrir menú'
+                            }
+                            accessibilityState={{ expanded: isMenuOpen }}
+                            onPress={() => setIsMenuOpen((previous) => !previous)}
+                            style={styles.menuButton}
+                        >
+                            <Text style={styles.menuButtonText}>
+                                {isMenuOpen ? '×' : '☰'}
+                            </Text>
+                        </Pressable>
+                    )}
                 </View>
             </View>
+            {!showNavigation && isMenuOpen && (
+                <View style={styles.mobileMenu}>
+                    {navigationItems.map((item) => (
+                        <Pressable
+                            key={item.id}
+                            accessibilityRole="button"
+                            accessibilityState={{
+                                selected: selectedSection === item.id,
+                            }}
+                            onPress={() => navigateTo(item.id)}
+                            style={styles.mobileMenuItem}
+                        >
+                            <Text
+                                style={[
+                                    styles.navigationText,
+                                    selectedSection === item.id &&
+                                    styles.selectedText,
+                                ]}
+                            >
+                                {item.label}
+                            </Text>
+                        </Pressable>
+                    ))}
+                </View>
+            )}
         </View>
     );
 }
@@ -141,6 +182,8 @@ const styles = StyleSheet.create({
         backgroundColor: colors.background,
         borderBottomWidth: 1,
         borderBottomColor: 'rgba(68, 71, 73, 0.3)',
+        position: 'relative',
+        zIndex: 10,
     },
 
     container: {
@@ -257,5 +300,39 @@ const styles = StyleSheet.create({
     pressedButton: {
         opacity: 0.8,
         transform: [{ scale: 0.97 }],
+    },
+    menuButton: {
+        width: 44,
+        height: 44,
+        alignItems: 'center',
+        justifyContent: 'center',
+        backgroundColor: colors.surfaceRaised,
+        borderWidth: 1,
+        borderColor: colors.border,
+        borderRadius: 6,
+    },
+
+    menuButtonText: {
+        color: colors.primary,
+        fontSize: 24,
+        lineHeight: 28,
+    },
+
+    mobileMenu: {
+        position: 'absolute',
+        top: '100%',
+        left: 0,
+        right: 0,
+        paddingHorizontal: spacing.lg,
+        paddingVertical: spacing.sm,
+        backgroundColor: colors.surface,
+        borderBottomWidth: 1,
+        borderBottomColor: colors.border,
+    },
+
+    mobileMenuItem: {
+        minHeight: 44,
+        justifyContent: 'center',
+        paddingVertical: spacing.sm,
     },
 });
