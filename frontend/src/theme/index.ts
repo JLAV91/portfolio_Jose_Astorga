@@ -28,3 +28,14 @@ export const typography = {
     body: 16,
     small: 13,
 } as const;
+
+export const fonts = {
+    heading: 'SpaceGrotesk_600SemiBold',
+    headingBold: 'SpaceGrotesk_700Bold',
+
+    body: 'Geist_400Regular',
+    bodyMedium: 'Geist_500Medium',
+    bodySemiBold: 'Geist_600SemiBold',
+
+    code: 'JetBrainsMono_500Medium',
+} as const;

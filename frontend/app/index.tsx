@@ -1,33 +1,72 @@
-import { ScrollView, StyleSheet, Text, View } from 'react-native';
+import { useRef } from 'react';
+import type { ComponentType } from 'react';
+import { ScrollView, StyleSheet, View } from 'react-native';
 
 import { Header } from '@/components/layout/Header';
-import { SectionContainer } from '@/components/layout/SectionContainer';
-import { colors, spacing, typography } from '@/theme';
+
+import { AboutSection } from '@/features/about/AboutSection';
+import { ContactSection } from '@/features/contact/ContactSection';
+import { EducationSection } from '@/features/education/EducationSection';
+import { ExperienceSection } from '@/features/experience/ExperienceSection';
+import { HeroSection } from '@/features/home/HeroSection';
+import { ProjectsSection } from '@/features/projects/ProjectsSection';
+
+import { colors } from '@/theme';
+import type { SectionId } from '@/types/navigation';
+
+type HomeSection = {
+  id: SectionId;
+  component: ComponentType;
+};
+
+const sections: HomeSection[] = [
+  { id: 'home', component: HeroSection },
+  { id: 'about', component: AboutSection },
+  { id: 'projects', component: ProjectsSection },
+  { id: 'education', component: EducationSection },
+  { id: 'experience', component: ExperienceSection },
+  { id: 'contact', component: ContactSection },
+];
 
 export default function HomeScreen() {
+  const scrollRef = useRef<ScrollView>(null);
+
+  const sectionPositions = useRef<
+    Partial<Record<SectionId, number>>
+  >({});
+
+  function scrollToSection(section: SectionId) {
+    const position = sectionPositions.current[section];
+
+    if (position === undefined) {
+      return;
+    }
+
+    scrollRef.current?.scrollTo({
+      y: position,
+      animated: true,
+    });
+  }
+
   return (
     <View style={styles.page}>
-      <Header />
+      <Header onNavigate={scrollToSection} />
 
       <ScrollView
+        ref={scrollRef}
         style={styles.scroll}
-        contentContainerStyle={styles.content}
       >
-        <SectionContainer>
-          <View style={styles.introduction}>
-            <Text style={styles.title}>
-              José Astorga
-            </Text>
-
-            <Text style={styles.subtitle}>
-              Software Developer
-            </Text>
-
-            <Text style={styles.description}>
-              Mobile • Backend • Cloud
-            </Text>
+        {sections.map(({ id, component: Section }) => (
+          <View
+            key={id}
+            onLayout={(event) => {
+              sectionPositions.current[id] =
+                event.nativeEvent.layout.y;
+            }}
+          >
+            <Section />
           </View>
-        </SectionContainer>
+        ))}
       </ScrollView>
     </View>
   );
@@ -38,32 +77,7 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: colors.background,
   },
-
   scroll: {
     flex: 1,
-  },
-
-  content: {
-    flexGrow: 1,
-  },
-
-  introduction: {
-    gap: spacing.sm,
-  },
-
-  title: {
-    fontSize: typography.title,
-    fontWeight: 'bold',
-    color: colors.primary,
-  },
-
-  subtitle: {
-    fontSize: typography.subtitle,
-    color: colors.text,
-  },
-
-  description: {
-    fontSize: typography.body,
-    color: colors.accent,
   },
 });
