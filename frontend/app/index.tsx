@@ -1,38 +1,69 @@
-import { StyleSheet, Text, View } from 'react-native';
+import { ScrollView, StyleSheet, Text, View } from 'react-native';
+
+import { Header } from '@/components/layout/Header';
+import { SectionContainer } from '@/components/layout/SectionContainer';
+import { colors, spacing, typography } from '@/theme';
 
 export default function HomeScreen() {
   return (
-    <View style={styles.container}>
-      <Text style={styles.title}>José Astorga</Text>
+    <View style={styles.page}>
+      <Header />
 
-      <Text style={styles.subtitle}>
-        Software Developer
-      </Text>
+      <ScrollView
+        style={styles.scroll}
+        contentContainerStyle={styles.content}
+      >
+        <SectionContainer>
+          <View style={styles.introduction}>
+            <Text style={styles.title}>
+              José Astorga
+            </Text>
 
-      <Text style={styles.description}>
-        Mobile • Backend • Cloud
-      </Text>
+            <Text style={styles.subtitle}>
+              Software Developer
+            </Text>
+
+            <Text style={styles.description}>
+              Mobile • Backend • Cloud
+            </Text>
+          </View>
+        </SectionContainer>
+      </ScrollView>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
+  page: {
     flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-    padding: 24,
+    backgroundColor: colors.background,
   },
+
+  scroll: {
+    flex: 1,
+  },
+
+  content: {
+    flexGrow: 1,
+  },
+
+  introduction: {
+    gap: spacing.sm,
+  },
+
   title: {
-    fontSize: 36,
+    fontSize: typography.title,
     fontWeight: 'bold',
+    color: colors.primary,
   },
+
   subtitle: {
-    fontSize: 22,
-    marginTop: 8,
+    fontSize: typography.subtitle,
+    color: colors.text,
   },
+
   description: {
-    fontSize: 16,
-    marginTop: 8,
+    fontSize: typography.body,
+    color: colors.accent,
   },
 });
