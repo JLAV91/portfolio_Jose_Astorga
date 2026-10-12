@@ -1,0 +1,29 @@
+# Dependencies
+node_modules/
+frontend/node_modules/
+
+# Expo
+.expo/
+frontend/.expo/
+dist/
+web-build/
+
+# Environment
+.env
+.env.*
+!.env.example
+
+# macOS
+.DS_Store
+
+# IDE
+.idea/
+.vscode/
+
+# Java
+target/
+*.class
+
+# Logs
+*.log
+npm-debug.log*
